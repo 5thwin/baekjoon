@@ -1,25 +1,36 @@
-//전깃줄 - DP
-#include<cstdio>
+//LIS처럼 풀기
+#include<iostream>
 #include<vector>
+#include<algorithm>
+#include<cstring>
 using namespace std;
 
-int N;
-vector< pair<int, int> > p;
-vector<int> cross;
+vector<pair<int, int>> arr;
+int dp[100];
 int main() {
-	int a, b;
-	scanf("%d", &N);
-	
-	//입력받고 교차점 수 세서 cross 에 저장
-	for (int i = 0; i < N; i++) {
-		int cross_counter = 0;
-		scanf("%d %d", &a, &b);
-		p.push_back(make_pair(a, b));
-		for (int j = 0; j < p.size()-1; j++) {
-			int pa = p[j].first, pb = p[j].second;
-			
-			if ((pa - a) * (pb - b) < 0)
-				cross_counter++;
-		}
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL);
+	cout.tie(NULL);
+	int N, i,j, a, b, max_dpv, result;
+
+	cin >> N;
+	for (i = 0; i < N; i++) {
+		cin >> a >> b;
+		arr.push_back({ a,b });
 	}
+	sort(arr.begin(), arr.end());
+
+	dp[0] = max_dpv = 1;
+	for (i = 1; i < N; i++) {
+		dp[i] = 1;
+		for (j = 0; j < i; j++) {
+			if (arr[j].second < arr[i].second) {
+				dp[i] = max(dp[i], dp[j] + 1);
+			}
+		}
+		max_dpv = max(max_dpv, dp[i]);
+	}
+	result = N - max_dpv;
+	cout << result;
+
 }
