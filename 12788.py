@@ -26,20 +26,3 @@ if pen < M * K:
     print("STRESS")
 
 
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
-
