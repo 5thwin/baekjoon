@@ -55,6 +55,5 @@ int main() {
 	cout << cnt << "\n";
 	for (int i = 0; i < cnt; i++)
 		cout << answer[i] + 1<< " ";
-
 }
 
