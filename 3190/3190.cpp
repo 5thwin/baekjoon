@@ -24,7 +24,6 @@ struct Snake
 	{
 		hy = hx = 0;
 		time = dir = 0;
-		body.push(MP(0,0));
 	}
 };
 
