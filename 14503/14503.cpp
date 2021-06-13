@@ -56,4 +56,3 @@ int main() {
 	memset(visit, 0 ,sizeof(visit));
 	cout << simulate(cy,cx,cd,0);
 }
-
