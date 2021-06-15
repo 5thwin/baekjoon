@@ -28,44 +28,57 @@ void propagate(int node, int start, int end)
 {
 	if (tree[node].lazy != 0)
 	{
+		//lazy확인하고 value 업데이트
 		tree[node].value += (end - start + 1) * tree[node].lazy;
+		//자식 노드가 존재하면 lazy 전파
 		if (start != end)
 		{
 			tree[node * 2].lazy += tree[node].lazy;
 			tree[node * 2 + 1].lazy += tree[node].lazy;
 		}
+		//현재 노드의 lazy 초기화
 		tree[node].lazy = 0;
 	}
 }
 ll sum(int node, int start, int end,int left, int right)
 {
+	//propagation
 	propagate(node, start, end);
 
+	//노드가 범위에 속한 부분이 없으면 무시
 	if (end < left || right < start)
 		return 0;
+	//노드가 범위에 완전히 속하면 현재 value 리턴
 	if (left <= start && end <= right)
 		return tree[node].value;
 	int mid = (start + end) / 2;
+	//분할 탐색
 	return sum(node * 2, start, mid, left, right) + sum(node * 2 + 1, mid + 1, end, left, right);
 }
 
 void update_range(int node, int start, int end, int left, int right, ll diff)
 {
+	//propagatoin
 	propagate(node, start, end);
-
+	//현재 노드가 범위에 완전히 속하지 않으면 무시
 	if (right < start || end < left) return ;
+	// 현재 노드가 범위에 완전히 속하면
 	if (left <= start && end <= right){
+		//현재 노드 업데이트
 		tree[node].value += (end - start + 1) * diff;
+		//자식노드가 있으면 lazy 업데이트
 		if (start != end){
 			tree[node * 2].lazy += diff;
 			tree[node * 2 + 1].lazy += diff;
 		}
+		//리턴
 		return ;
 	}
-
+	//분할하여 두 자식노드를 각각 update
 	int mid = (start + end) / 2;
 	update_range(node * 2, start, mid, left, right, diff);
 	update_range(node * 2 + 1, mid + 1, end, left, right, diff);
+	//업데이트된 자식들을 통해 현재 노드 업데이트
 	tree[node].value = tree[node * 2].value + tree[node * 2 + 1].value;
 }
 
