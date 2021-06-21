@@ -8,6 +8,6 @@ typedef long long ll;
 using namespace std;
 
 int main() {
-
+	FAST;
 }
 " > $1/$1.cpp
