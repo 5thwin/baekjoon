@@ -1,34 +1,52 @@
-#include <stdio.h>
-#include <stdarg.h>
+#include <iostream>
+#include <map>
+#include <string>
 
-int fun(va_list ap)
-{
-	int i;
-	int ret;
+using namespace std;
 
-	ret = 0;
-	for(i=0; i<10; i++)
-    	ret += va_arg(ap, int);
-	return (ret);
-}
+int main(){
 
-int sum(const char *str, ...)
-{
-    int res = 0;
-    va_list ap;
+	// map
+	// <string, int> => <key, value>
+	map< string, int > m;
 
-    va_start(ap, str);
-	res = fun(ap);
-    va_end(ap);
 
-    return res;
-}
+	// insert(key,value)
+	m.insert(make_pair("a", 1));
+	m.insert(make_pair("b", 2));
+	m.insert(make_pair("c", 3));
+	m.insert(make_pair("d", 4));
+	m.insert(make_pair("e", 5));
+	m["f"] = 6; // also possible
 
-int main()
-{
-	const char *str = "abcd";
 
-    printf("%d\n", sum(str, 1,2,3,4,5,6,7,8,9,10));
+	// erase(key)
+	m.erase("d");
+	m.erase("e");
+	m.erase(m.find("f")); // also possible
 
-    return 0;
+
+	// empty(), size()
+	if(!m.empty()) cout << "m size: " << m.size() << '\n';
+
+
+	// find(key)
+	cout << "a: " << m.find("a")->second << '\n';
+	cout << "b: " << m.find("b")->second << '\n';
+
+
+	// count(key)
+	cout << "a count: " << m.count("a") << '\n';
+	cout << "b count: " << m.count("b") << '\n';
+
+
+	// begin(), end()
+	cout << "traverse" << '\n';
+    // map< string, int >::iterator it; also possible
+	for(auto it = m.begin(); it != m.end(); it++){
+		cout << "key: " << it->first << " " << "value: " << it->second << '\n';
+	}
+
+	return 0;
+
 }
