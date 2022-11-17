@@ -1,0 +1,15 @@
+g*.pdb
+*.obj
+*.exe
+*.ilk
+*.dSYM/*
+*.xml
+*.cmake
+*.plist
+CMake*
+*.iml
+.DS_Store
+.idea/*
+input.txt
+.vscode/*
+acmicpc/0000*
